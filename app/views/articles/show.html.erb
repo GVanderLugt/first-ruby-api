@@ -14,6 +14,9 @@
   <% @article.comments.each do |comment| %>
     <tr>
       <td><%= comment.commenter + ': ' + comment.body %></td>
+      <td><%= link_to 'Destroy', user_article_comment_path(@user, @article, comment),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %></td>
     </tr>
   <% end %>
 </table>
