@@ -8,5 +8,30 @@
   <%= @article.text %>
 </p>
 
+<h2>Comments</h2>
+
+<table>
+  <% @article.comments.each do |comment| %>
+    <tr>
+      <td><%= comment.commenter + ': ' + comment.body %></td>
+    </tr>
+  <% end %>
+</table>
+
+<h2>Add Comment</h2>
+<%= form_for :comment, url: user_article_comments_path(@user, @article) do |f|%>
+  <p>
+    <%= f.label :commenter %><br>
+    <%= f.text_field :commenter %>
+  </p>
+  <p>
+    <%= f.label :body %><br>
+    <%= f.text_area :body %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
 <%= link_to 'Edit', edit_user_article_path(@user, @article) %>
 <%= link_to 'Back', user_path(@user) %>
