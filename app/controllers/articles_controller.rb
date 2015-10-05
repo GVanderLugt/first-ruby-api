@@ -1,45 +1,51 @@
 class ArticlesController < ApplicationController
   def index
-    @articles = Article.all    
+    @articles = Article.all
   end
 
   def show
-    @article = Article.find(params[:id])
+    @user = User.find(params[:user_id])
+    @article = @user.articles.find(params[:id])
   end
 
   def new
-    @article = Article.new
+    @user = User.find(params[:user_id])
+    @article = @user.articles.new
   end
 
   def edit
-    @article = Article.find(params[:id]) 
+    @user = User.find(params[:user_id])
+    @article = @user.articles.find(params[:id])
   end
 
   def create
-    @article = Article.new(article_params)
-    
+    @user = User.find(params[:user_id])
+    @article = @user.articles.create(article_params)
+
     if @article.save
-      redirect_to @article
+      redirect_to user_article_path(@user, @article)
     else
       render 'new'
     end
   end
 
   def update
-    @article = Article.find(params[:id])
+    @user = User.find(params[:user_id])
+    @article = @user.articles.find(params[:id])
 
     if @article.update(article_params)
-      redirect_to @article
+      redirect_to user_article_path(@user, @article)
     else
       render 'edit'
     end
   end
 
   def destroy
-   @article = Article.find(params[:id])
+   @user = User.find(params[:user_id ])
+   @article = @user.articles.find(params[:id])
    @article.destroy
 
-   redirect_to articles_path
+   redirect_to user_path(@user)
   end
 
   private

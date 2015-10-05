@@ -1,4 +1,4 @@
-<%= form_for @article do |f| %>
+<%= form_for :article, url: user_articles_path do |f| %>
 
   <% if @article.errors.any? %>
     <div id="error_explanation">
@@ -15,7 +15,7 @@
   <% end %>
 
   <p>
-    <%= f.label :title %><br> 
+    <%= f.label :title %><br>
     <%= f.text_field :title %>
   </p>
 

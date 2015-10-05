@@ -1,0 +1,30 @@
+<h2><%= @user.first_name + ' ' + @user.last_name %></h2>
+
+<p>
+  <strong>Email: </strong>
+  <%= @user.email %>
+</p>
+
+<%= link_to "New Article", new_user_article_path(@user) %>
+
+<h2>Articles:</h2>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Text</th>
+    <th colspan="2"></th>
+  </tr>
+
+  <% @user.articles.each do |article| %>
+    <tr>
+      <td><%= article.title %></td>
+      <td><%= article.text %></td>
+      <td><%= link_to "Show", user_article_path(@user, article) %></td>
+      <td><%= link_to "Edit", edit_user_article_path(@user, article) %></td>
+      <td><%= link_to "Destroy", user_article_path(@user, article),
+              method: :delete,
+              data: { confirm: "Are you sure?" } %></td>
+    </tr>
+  <% end %>
+</table>
